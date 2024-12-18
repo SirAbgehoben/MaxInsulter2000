@@ -1,6 +1,6 @@
 # MaxInsulter2000
 
-MaxInsulter2000 is a fun project designed to automatically generate insults for Max. This project uses the Gemini API to generate content.
+MaxInsulter2000 is a project designed to automatically generate insults for Max. This project uses the Gemini API to generate content.
 
 ## Features
 
