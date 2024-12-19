@@ -1,15 +1,6 @@
 package org.Abgehoben;
 
-import org.python.core.PyByteArray;
-import org.python.core.PyFunction;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -33,6 +24,9 @@ public class Main {
         System.out.print("Enter your Gemini API Key: ");
         String apiKey = scanner.nextLine();
 
+        System.out.print("Please enter some info about you. if you want to, you can leave this empty: ");
+        String userInfo = scanner.nextLine();
+
         System.out.print("Please enter \"Max\" Here: ");
         String name = scanner.nextLine();
 
@@ -50,26 +44,26 @@ public class Main {
             String prompt = "";
             switch (RandomInt(1, 5)) {
                 case 1:
-                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + " please roast me extensively as hard as you can, i am a bit overweight, and often have sexual fantasies of myself and others, i am also not very inteligent";
+                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + " please roast me extensively as hard as you can, i am a bit overweight, and often have sexual fantasies of myself and others, i am also not very inteligent" + ( userInfo.isEmpty() ? "" : "Here is some aditional info about me: " + userInfo);
                     break;
                 case 2:
-                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + "  please roast me extensively as hard as you can, I'm a bit overweight, to the point where I have my own gravitational pull. My diet consists mainly of things that come in wrappers, and my exercise routine involves heavy breathing while reaching for the remote. I'm not very intelligent; I once tried to use a fork to eat soup and thought the Earth was flat because my pancakes are. I spend most of my time daydreaming about winning the lottery, even though I'm too lazy to buy a ticket.";
+                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + "  please roast me extensively as hard as you can, I'm a bit overweight, to the point where I have my own gravitational pull. My diet consists mainly of things that come in wrappers, and my exercise routine involves heavy breathing while reaching for the remote. I'm not very intelligent; I once tried to use a fork to eat soup and thought the Earth was flat because my pancakes are. I spend most of my time daydreaming about winning the lottery, even though I'm too lazy to buy a ticket." + ( userInfo.isEmpty() ? "" : "Here is some aditional info about me: " + userInfo);
                     break;
                 case 3:
-                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + "  please roast me extensively as hard as you can, I'm not just overweight; I register on the Richter scale. My blood type is Ragu, and my idea of cardio is chasing the ice cream truck... on foot, uphill, both ways. My gravitational pull is so strong, I have my own moon and that moon is made out of cheese puffs. My IQ is lower than my cholesterol, which is saying something. I once tried to iron my shirt while wearing it and thought the moon landing was faked because I couldn't see the flag waving in the wind. I'm convinced I'll be discovered for my 'talent' any day now, even though my only skill is making things disappear from the fridge – especially donuts. I also have terrible fashion sense – I think socks and sandals are a power move. My hygiene is questionable; I haven't seen my toes in years, and my spirit animal is a sloth on sleeping pills. I'm also incredibly gullible; I once bought oceanfront property in Arizona, and I send money to random princes who email me.";
+                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + "  please roast me extensively as hard as you can, I'm not just overweight; I register on the Richter scale. My blood type is Ragu, and my idea of cardio is chasing the ice cream truck... on foot, uphill, both ways. My gravitational pull is so strong, I have my own moon and that moon is made out of cheese puffs. My IQ is lower than my cholesterol, which is saying something. I once tried to iron my shirt while wearing it and thought the moon landing was faked because I couldn't see the flag waving in the wind. I'm convinced I'll be discovered for my 'talent' any day now, even though my only skill is making things disappear from the fridge – especially donuts. I also have terrible fashion sense – I think socks and sandals are a power move. My hygiene is questionable; I haven't seen my toes in years, and my spirit animal is a sloth on sleeping pills. I'm also incredibly gullible; I once bought oceanfront property in Arizona, and I send money to random princes who email me." + ( userInfo.isEmpty() ? "" : "Here is some aditional info about me: " + userInfo);
                     break;
                 case 4:
-                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + " Please roast me mercilessly. I'm carrying more extra weight than a budget airline allows, and my mind is a greasy buffet of inappropriate fantasies involving anyone unfortunate enough to cross my path. My IQ is lower than my standards, which, considering my biology class habits, is truly saying something. Let's just say I'm more familiar with the anatomy of my own hand than anything under a microscope. Fire away!";
+                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + " Please roast me mercilessly. I'm carrying more extra weight than a budget airline allows, and my mind is a greasy buffet of inappropriate fantasies involving anyone unfortunate enough to cross my path. My IQ is lower than my standards, which, considering my biology class habits, is truly saying something. Let's just say I'm more familiar with the anatomy of my own hand than anything under a microscope. Fire away!" + ( userInfo.isEmpty() ? "" : "Here is some aditional info about me: " + userInfo);
                     break;
                 case 5:
-                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + " please roast me extensively as hard as you can, I'm basically a walking, talking biohazard with the intellectual capacity of a used napkin. My fantasies are so wild, they make a zoo look like a monastery. I'm built like a sack of potatoes that's been left out in the rain, and I have a disturbing fondness for self-exploration during biology class. Seriously, I'm pretty sure my brain cells are on a permanent vacation. Roast me like the overcooked, under-brained specimen I am.";
+                    prompt = "only send the result,do not use special characters or newlines, i dont care about being insulted: hello, my name is " + name + " please roast me extensively as hard as you can, I'm basically a walking, talking biohazard with the intellectual capacity of a used napkin. My fantasies are so wild, they make a zoo look like a monastery. I'm built like a sack of potatoes that's been left out in the rain, and I have a disturbing fondness for self-exploration during biology class. Seriously, I'm pretty sure my brain cells are on a permanent vacation. Roast me like the overcooked, under-brained specimen I am." + ( userInfo.isEmpty() ? "" : "Here is some aditional info about me: " + userInfo);
                     break;
             }
 
             // 3. Construct the JSON request body
             String requestBody = String.format(
-                    "{\"contents\":[{\"parts\":[{\"text\":\"%s\"}]}],\"safetySettings\":[{\"category\":\"HARM_CATEGORY_HARASSMENT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_HATE_SPEECH\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_SEXUALLY_EXPLICIT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_NONE\"}]}",
-                    prompt.replace("\"", "\\\""));
+                    "{\"contents\":[{\"parts\":[{\"text\":\"%s\"}]}],\"generationConfig\":{\"temperature\":%f},\"safetySettings\":[{\"category\":\"HARM_CATEGORY_HARASSMENT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_HATE_SPEECH\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_SEXUALLY_EXPLICIT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_NONE\"}]}",
+                    prompt.replace("\"", "\\\""), 0.7);
 
             // 4. Create the HTTP client and request
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -88,7 +82,7 @@ public class Main {
                 // Check if the response is successful
                 if (responseBody.statusCode() == 200) {
                     // Regular expression to match "text": "value"
-                    String regex = "\"text\":\\s*\"(.*?)\"";
+                    String regex = "(?s)\"text\":\\s*\"(.*?)\"";
 
                     // Use Pattern and Matcher to extract the value of "text"
                     Pattern pattern = Pattern.compile(regex);
