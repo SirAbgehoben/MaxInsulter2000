@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -60,10 +61,15 @@ public class Main {
                     break;
             }
 
-            // 3. Construct the JSON request body
+            // 4. Construct the JSON request body
+            double temperatureValue = 0.7;
+            String temperatureString = String.format(Locale.US, "%.6f", temperatureValue); // Format with up to 6 decimal places
+            temperatureString = temperatureString.contains(".") ? temperatureString.replaceAll("0*$", "").replaceAll("\\.$", "") : temperatureString;
+
             String requestBody = String.format(
-                    "{\"contents\":[{\"parts\":[{\"text\":\"%s\"}]}],\"generationConfig\":{\"temperature\":%f},\"safetySettings\":[{\"category\":\"HARM_CATEGORY_HARASSMENT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_HATE_SPEECH\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_SEXUALLY_EXPLICIT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_NONE\"}]}",
-                    prompt.replace("\"", "\\\""), 0.7);
+                    Locale.US,
+                    "{\"contents\":[{\"parts\":[{\"text\":\"%s\"}]}],\"generationConfig\":{\"temperature\":%s},\"safetySettings\":[{\"category\":\"HARM_CATEGORY_HARASSMENT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_HATE_SPEECH\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_SEXUALLY_EXPLICIT\",\"threshold\":\"BLOCK_NONE\"},{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_NONE\"}]}",
+                    prompt.replace("\"", "\\\""), temperatureString); // Use the cleaned temperature string
 
             // 4. Create the HTTP client and request
             HttpClient httpClient = HttpClient.newHttpClient();
